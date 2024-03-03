@@ -8,6 +8,8 @@ import { HttpExceptionFilter } from './common/filter/httpException.filter';
 import { ValidationException } from './common/filter/exception/validation.exception';
 import { EnvModule } from './libs/env/env.module';
 import { HttpResponseInterceptor } from './common/interceptor/httpResponse.interceptor';
+import { DbModule } from './libs/db/db.module';
+import { UserModule } from './api/user/user.module';
 
 const interceptors = [
   {
@@ -41,7 +43,7 @@ const pipes = [
   },
 ];
 @Module({
-  imports: [LogModule.forRoot(), EnvModule.forRoot()],
+  imports: [LogModule.forRoot(), EnvModule.forRoot(), DbModule, UserModule],
   controllers: [AppController],
   providers: [AppService, ...interceptors, ...filters, ...pipes],
 })

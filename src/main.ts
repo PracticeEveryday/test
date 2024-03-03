@@ -11,14 +11,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const envService = app.get(EnvService);
-  const PORT = Number(envService.get<EnvEnum>(EnvEnum.PORT)) || 3000;
-
+  const PORT = Number(envService.getOrThrow<EnvEnum>(EnvEnum.PORT)) || 3000;
   setupSwagger(app);
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   await app.listen(PORT, () => {
     console.log(`Server Start PORT - ${PORT}`);
+
     if (process.env.NODE_ENV !== NodeEnvEnum.LOCAL && process.send) process.send('ready');
   });
 
