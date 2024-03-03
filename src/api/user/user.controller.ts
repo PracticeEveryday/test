@@ -5,6 +5,7 @@ import { UserService } from './user.service';
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
   @Post('/')
   public async create(@Body() createReqDto: CreateUserReqDto) {
     return await this.userService.create(createReqDto);
