@@ -6,6 +6,7 @@ import { UserEntity } from '../../libs/db/typeorm/entities/user.entity';
 import { UserProviders } from '../../libs/db/typeorm/providers/user.providers';
 import { CreateUserReqDto, CreateUserResDto } from './dtos/create.dto';
 import { UserDomain } from './domain/user.domain';
+import { UserMapper } from '../../libs/db/typeorm/mapper/user.mapper';
 
 const mockUserRepository = {
   save: jest.fn(),
@@ -21,6 +22,7 @@ describe('UserController', () => {
       providers: [
         UserService,
         ...UserProviders,
+        UserMapper,
         {
           provide: getRepositoryToken(UserEntity),
           useValue: mockUserRepository,
